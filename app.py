@@ -4,15 +4,20 @@ from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from linebot.exceptions import InvalidSignatureError
+from dotenv import load_dotenv
+
+
+# 載入 .env 檔案
+load_dotenv()
 
 # 設定 Google Gemini API
-GEMINI_API_KEY = "AIzaSyC0Vw3wBC9qgROahGd3tqeF5wTjuvgjIv0"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-pro")
 
 # 設定 LINE API
-LINE_ACCESS_TOKEN = "8oe585e7mBCatmL4TXwEdZ7V9IlXqK8Nw97ERw8IMbmJry/e/zlL8iKAolAV4xb2lRJH3hMMu+WJf6XxI9MqOYmgtS2OFXNyMrKDCRUsEWkW95pQNmx9+lxA7OH4eCzVlgYFcf7Dxk+SCOcTAgMVNAdB04t89/1O/w1cDnyilFU="
-LINE_SECRET = "7114cd13b34f8c5334f5dd24907742c3"
+LINE_ACCESS_TOKEN = os.getenv("LINE_ACCESS_TOKEN")
+LINE_SECRET = os.getenv("LINE_SECRET")
 
 app = Flask(__name__)
 line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
